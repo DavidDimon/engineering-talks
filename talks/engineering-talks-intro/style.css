@@ -1,0 +1,26 @@
+:root {
+  --et-accent: #0f766e;
+  --et-accent-soft: #ccfbf1;
+}
+
+.slidev-layout h1 {
+  color: var(--et-accent);
+  letter-spacing: -0.025em;
+}
+
+.dark .slidev-layout h1 {
+  color: #5eead4;
+}
+
+.callout {
+  border-left: 0.3rem solid var(--et-accent);
+  background: var(--et-accent-soft);
+  color: #134e4a;
+  padding: 1rem 1.25rem;
+  border-radius: 0.25rem;
+}
+
+.dark .callout {
+  background: #134e4a;
+  color: #ccfbf1;
+}

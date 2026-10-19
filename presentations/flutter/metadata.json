@@ -1,0 +1,17 @@
+{
+  "$schema": "../../packages/content-schema/presentation-metadata.schema.json",
+  "schemaVersion": 2,
+  "kind": "presentation",
+  "slug": "flutter",
+  "title": "Flutter",
+  "description": "Uma introdução histórica ao Flutter e ao desenvolvimento de aplicações multiplataforma.",
+  "format": "talk",
+  "language": "pt-BR",
+  "topics": ["flutter", "mobile", "dart"],
+  "level": "beginner",
+  "deliveredAt": { "year": 2020, "month": 4, "approximate": true },
+  "status": "published",
+  "sourceUrl": "https://github.com/DavidDimon/flutter-keynote",
+  "historicalNotice": "Este conteúdo reflete o estado da tecnologia na época em que foi produzido.",
+  "migrationStatus": "migrated"
+}

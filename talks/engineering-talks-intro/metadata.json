@@ -1,0 +1,17 @@
+{
+  "$schema": "../../packages/content-schema/presentation-metadata.schema.json",
+  "schemaVersion": 2,
+  "kind": "presentation",
+  "slug": "engineering-talks-intro",
+  "title": "Engineering Talks: Sharing Engineering Decisions",
+  "description": "A short tour of the principles behind useful, durable engineering presentations.",
+  "format": "talk",
+  "language": "en",
+  "topics": ["engineering-culture", "knowledge-sharing", "presentations"],
+  "level": "all-levels",
+  "deliveredAt": { "year": 2026, "month": 10, "approximate": false },
+  "status": "published",
+  "sourceUrl": "https://github.com/DavidDimon/engineering-talks/tree/main/talks/engineering-talks-intro",
+  "durationMinutes": 15,
+  "migrationStatus": "native"
+}

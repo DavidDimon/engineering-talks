@@ -1,0 +1,51 @@
+{
+  "name": "engineering-talks",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Technical presentations, workshops, and educational resources.",
+  "license": "MIT",
+  "type": "module",
+  "packageManager": "pnpm@11.28.2",
+  "engines": {
+    "node": ">=26.12.0 <27",
+    "pnpm": "11.28.2"
+  },
+  "scripts": {
+    "affected": "nx affected",
+    "affected:build": "nx affected -t build",
+    "affected:lint": "nx affected -t lint",
+    "affected:test": "nx affected -t test",
+    "affected:typecheck": "nx affected -t typecheck",
+    "build": "nx run-many -t build --all",
+    "check": "pnpm format:check && pnpm lint && pnpm typecheck && pnpm test && pnpm build && pnpm test:e2e",
+    "content:generate": "nx run content-tools:build",
+    "content:validate": "nx run content-tools:validate",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "graph": "nx graph",
+    "lint": "pnpm lint:workspace && nx run-many -t lint --all",
+    "lint:workspace": "eslint eslint.config.mjs",
+    "nx": "nx",
+    "new:presentation": "tsx tools/templates/presentation/create-presentation.ts",
+    "pages:build": "nx build pages",
+    "pages:serve": "pnpm --filter @engineering-talks/showcase exec vite preview --config ../../tools/pages/vite.config.ts",
+    "test": "nx run-many -t test --all",
+    "test:e2e": "pnpm pages:build && playwright test",
+    "typecheck": "nx run-many -t typecheck --all"
+  },
+  "devDependencies": {
+    "@eslint/js": "10.0.1",
+    "@nx/eslint": "23.3.0",
+    "@nx/eslint-plugin": "23.3.0",
+    "@nx/js": "23.3.0",
+    "@nx/workspace": "23.3.0",
+    "@playwright/test": "1.64.1",
+    "@types/node": "26.6.5",
+    "eslint": "10.12.0",
+    "nx": "23.3.0",
+    "prettier": "3.9.10",
+    "tsx": "4.23.15",
+    "typescript": "6.0.3",
+    "typescript-eslint": "8.71.2"
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "name": "@engineering-talks/talk-engineering-talks-intro",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "slidev build --base /engineering-talks/talks/engineering-talks-intro/ --out ../../dist/talks/engineering-talks-intro --without-notes",
+    "dev": "slidev --open",
+    "validate": "tsx ../../tools/content/src/cli.ts validate --root ../.. --file talks/engineering-talks-intro/metadata.json"
+  },
+  "devDependencies": {
+    "@slidev/cli": "53.0.0",
+    "@slidev/theme-default": "0.25.0",
+    "tsx": "4.23.15",
+    "vue": "3.5.44"
+  },
+  "nx": {
+    "name": "talk-engineering-talks-intro",
+    "tags": [
+      "scope:presentation",
+      "type:talk"
+    ],
+    "implicitDependencies": [
+      "content-schema",
+      "content-tools"
+    ],
+    "targets": {
+      "build": {
+        "outputs": [
+          "{workspaceRoot}/dist/talks/engineering-talks-intro"
+        ]
+      }
+    }
+  }
+}

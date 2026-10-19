@@ -1,0 +1,8 @@
+.nx
+coverage
+dist
+apps/showcase/src/generated
+node_modules
+playwright-report
+pnpm-lock.yaml
+test-results

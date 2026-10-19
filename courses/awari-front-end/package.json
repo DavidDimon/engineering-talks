@@ -1,0 +1,36 @@
+{
+  "name": "@engineering-talks/course-awari-front-end",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node build.mjs",
+    "test": "tsx --test course.test.ts",
+    "validate": "tsx ../../tools/content/src/cli.ts validate --root ../.. --file courses/awari-front-end/course.json"
+  },
+  "devDependencies": {
+    "@slidev/cli": "53.0.0",
+    "@slidev/theme-default": "0.25.0",
+    "tsx": "4.23.15",
+    "vue": "3.5.44"
+  },
+  "nx": {
+    "name": "course-awari-front-end",
+    "tags": [
+      "scope:presentation",
+      "type:course",
+      "format:training"
+    ],
+    "implicitDependencies": [
+      "content-schema",
+      "content-tools"
+    ],
+    "targets": {
+      "build": {
+        "outputs": [
+          "{workspaceRoot}/dist/courses/awari-front-end"
+        ]
+      }
+    }
+  }
+}

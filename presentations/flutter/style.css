@@ -1,0 +1,10 @@
+@import '../mdx-deck/style.css';
+
+:root {
+  --deck-background: #272425;
+  --deck-accent: #54c5f8;
+}
+
+.deck-image.wide {
+  width: min(62rem, 95%);
+}

@@ -1,0 +1,17 @@
+{
+  "$schema": "../../packages/content-schema/presentation-metadata.schema.json",
+  "schemaVersion": 2,
+  "kind": "presentation",
+  "slug": "software-testing",
+  "title": "Testes de software",
+  "description": "Uma apresentação histórica sobre práticas e estratégias de testes de software.",
+  "format": "talk",
+  "language": "pt-BR",
+  "topics": ["testes", "qualidade", "engenharia-de-software"],
+  "level": "all-levels",
+  "deliveredAt": { "year": 2020, "month": 2, "approximate": true },
+  "status": "published",
+  "sourceUrl": "https://github.com/DavidDimon/tests-keynote",
+  "historicalNotice": "Este conteúdo reflete o estado da tecnologia na época em que foi produzido.",
+  "migrationStatus": "migrated"
+}

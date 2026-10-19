@@ -1,0 +1,14 @@
+.DS_Store
+.env
+.env.*
+!.env.example
+.nx/
+.pnpm-store/
+coverage/
+dist/
+node_modules/
+playwright-report/
+test-results/
+
+# Generated content catalog. It is recreated by the content tooling.
+apps/showcase/src/generated/

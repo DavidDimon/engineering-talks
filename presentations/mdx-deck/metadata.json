@@ -1,0 +1,17 @@
+{
+  "$schema": "../../packages/content-schema/presentation-metadata.schema.json",
+  "schemaVersion": 2,
+  "kind": "presentation",
+  "slug": "mdx-deck",
+  "title": "MDX Deck",
+  "description": "Uma apresentação histórica sobre a criação de slides com MDX Deck.",
+  "format": "talk",
+  "language": "pt-BR",
+  "topics": ["mdx", "apresentacoes", "react"],
+  "level": "beginner",
+  "deliveredAt": { "year": 2020, "month": 10, "approximate": true },
+  "status": "published",
+  "sourceUrl": "https://github.com/DavidDimon/mdx-deck-keynote",
+  "historicalNotice": "Este conteúdo reflete o estado da tecnologia na época em que foi produzido.",
+  "migrationStatus": "migrated"
+}

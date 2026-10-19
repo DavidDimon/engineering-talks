@@ -1,0 +1,37 @@
+:root {
+  --deck-background: #282a36;
+  --deck-foreground: #f8f8f2;
+  --deck-muted: #bdc2d4;
+  --deck-accent: #8be9fd;
+}
+
+.slidev-layout {
+  background: var(--deck-background);
+  color: var(--deck-foreground);
+  font-size: 1.6rem;
+}
+
+.slidev-layout h1,
+.slidev-layout h2 {
+  color: var(--deck-accent);
+  letter-spacing: -0.025em;
+}
+
+.historical-note {
+  color: var(--deck-muted);
+  font-size: 0.9rem;
+  margin-top: 3rem;
+}
+
+.deck-image {
+  display: block;
+  margin: 1.5rem auto 0;
+  max-height: 62vh;
+  max-width: 90%;
+  object-fit: contain;
+}
+
+.deck-image.square {
+  height: 25rem;
+  width: 25rem;
+}

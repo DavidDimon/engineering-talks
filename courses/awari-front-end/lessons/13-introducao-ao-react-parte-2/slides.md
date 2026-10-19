@@ -1,0 +1,373 @@
+---
+theme: default
+title: 'Introdução ao React — parte 2'
+titleTemplate: '%s — Curso de front-end Awari'
+author: David Dimon
+transition: slide-left
+mdc: true
+---
+
+<script setup>
+import Intro from '../../shared/components/Intro.vue'
+import CourseImage from '../../shared/components/CourseImage.vue'
+import LessonNav from '../../shared/components/LessonNav.vue'
+import '../../shared/style.css'
+</script>
+
+<LessonNav
+  course-url="/engineering-talks/courses/awari-front-end/"
+  previous-url="/engineering-talks/courses/awari-front-end/aulas/12-introducao-ao-react/"
+  next-url="/engineering-talks/courses/awari-front-end/aulas/14-functional-component/"
+/>
+
+<Intro title="Introdução ao React parte 2" image="coding" />
+
+---
+
+# O que vamos ver hoje?
+
+<ul>
+    <v-clicks>
+      <li>Build</li>
+      <li>Fast refresh</li>
+      <li>Estrutura básica</li>
+      <li>Import e export</li>
+      <li>Componentização</li>
+      <li>Class component</li>
+      <li>Component Props</li>
+      <li>State</li>
+      <li>Ciclo de vida</li>
+      <li>React router dom</li>
+    </v-clicks>
+  </ul>
+
+---
+
+# Build
+
+As nossas aplicações React são compiladas, o processo é simples, o
+transpilador(babel) 'traduz' o nosso código EcmaScript para uma versão mais
+pura do JavaScript, depois esse código é compilado para uma versão mais
+otimizada e assim teremos alguns arquivos JS, css e html.
+
+---
+
+# Build
+
+Com isso, teremos duas versões do nosso app, uma compilada com um código mais
+otimizado(build de produção) e uma compilada com um código menos otimizado,
+mas com a possibilidade de modificações em tempo real(build de
+desenvolvimento).
+
+---
+
+# Fast Refresh
+
+Este build de desenvolvimento possui uma função de fast refresh, ou seja,
+temos a possibilidade de mudar o código, e o compilador alterar a versão de
+desenvolvimento em tempo real, assim, conseguimos fazer os nossos maravilhosos
+códigos sem ter que ficar fazendo builds a cada mudança.
+
+---
+
+# Estrutura básica
+
+A estrutura que o create-react-app monta, não é o suficiente para nós, pois
+ela fica bem desorganizada, sem níveis de separação, mas não é muito dificil
+de montar uma estrutura simples para podermos fazer algumas aplicações.
+
+---
+
+# Estrutura básica
+
+<CourseImage name="structure" alt="Estrutura básica" :width="500" :height="550" />
+
+---
+
+# Estrutura básica
+
+<ul>
+    <li>Build - Contém os artefatos da versão de produção</li>
+    <li>node_modules - Contém todas as nossas dependências</li>
+    <li>
+      public - É a pasta que o navegador consegue acessar, la irá ter o favicon,
+      o html default e mais alguns arquivos de configuração
+    </li>
+    <li>src - Irá ter todo o nosso código fonte</li>
+    <li>
+      .gitignore - Arquivo para omitir alguns arquivos/pasta do commit(arquivos
+      de configuração, node_modules...etc)
+    </li>
+    <li>package.json - Arquivo com configurações do nosso projeto</li>
+    <li>readme.md - Arquivo com uma introdução ao nosso projeto</li>
+  </ul>
+
+---
+
+# Estrutura básica - Package.json
+
+O package.json, terá várias configurações do nosso projeto, tais como:
+<br />
+  <ul>
+    <li>name - Nome do projeto</li>
+    <li>version - Versão do projeto</li>
+    <li>private - Se é um pacote privado ou não no npm</li>
+    <li>
+      dependencies - Dependências do projeto(que vão ser usadas no build de
+      produção)
+    </li>
+    <li>
+      devDependencies - Dependências que só vão ser usadas no build de
+      desenvolvimento
+    </li>
+    <li>scripts - funções que podemos executar via yarn ou npm run</li>
+  </ul>
+
+---
+
+# Estrutura básica - src
+
+<ul>
+    <li>components - Pasta com os componentes do projeto</li>
+    <li>pages - Pasta com as páginas do projeto</li>
+    <li>routes - Pasta com configurações de rotas do react-router-dom</li>
+    <li>styles - Pasta com os css mais gerais do projeto</li>
+    <li>
+      reportWebVitals - arquivo para mensurar a qualidade a aplicação em termos
+      de performance
+    </li>
+  </ul>
+
+---
+
+# import e export
+
+Para reutilizarmos funções, components ou até variáveis utilizamos a
+palavra-chave <b>import</b> e <b>export</b>. Essas palavras-chaves foram
+adicionadas no es6, ou seja no JavaScript es5 usávmos a palavra-chave
+<b> require('caminho do arquivo')</b>
+
+---
+
+# export
+
+O <b>export</b> serve para exportar ou deixar público algum código, e temos
+duas formas de fazer isso, como default ou named. O export do tipo default,
+só pode haver um no arquivo, e o named podemos ter vários
+
+---
+
+# export - exemplo
+
+```js
+export const value = 1; // named export
+const value2 = 2;
+export default value2;
+```
+
+---
+
+# import
+
+A diferença do named para o default, esta na hora de importar, usando a
+palavra-chave <b>import</b> e <b>from</b> conseguimos extrair o que foi
+exportado.
+
+---
+
+# import - exemplo
+
+```js
+// named import
+import { value, value3 } from 'caminho do arquivo/ou nome da lib'\n
+// default import
+import value2 from 'caminho do arquivo/ou nome da lib'
+```
+
+---
+
+# Componentização
+
+Um dos diferenciais do react, é a forma de separar o código, e uma das formas
+de organizar os seus layouts é criando componentes que seriam pequenas partes
+do layout. Esses componentes irão funcionar como tags de html customizadas!
+
+---
+
+# Class component
+
+Uma das formas de criar componentes é com uma class, porém essa forma é
+depreciada, ou seja, não usamos mais dessa forma, mas ainda sim é interessante
+sabermos que existe, e como funciona.
+
+---
+
+# Class component - exemplo
+
+```js
+import React from 'react'\n
+// ou React.Component, mas o pure component é mais otimizado
+class Component extends React.PureComponent {
+  constructor(){ // opcional
+    super();
+  }\n
+  render() {
+    return <h1>test</h1>
+  }
+}\n
+export default Component
+```
+
+---
+
+# Component props
+
+Como no html padrão, podemos ter atributos nos nossos componentes. No react
+essas props servem para passarmos dados para outros componentes, como por
+exemplo, se tivermos um componente de texto, e precisamos que o texto seja
+dinâmico, podemos criar uma prop chamada <b>text</b> e chama-la dentro do
+componente
+
+---
+
+# Component props - exemplo
+
+```js
+import React from 'react'\n
+// ou React.Component, mas o pure component é mais otimizado
+class Component extends React.PureComponent {
+  render() {
+    return <h1>{this.props.text}</h1>
+  }
+}
+<Component text="aeho" /> // o Component recebendo a prop text
+```
+
+---
+
+# Component state
+
+E se quisessemos criar variáveis no nosso componente? Para isso existem os
+<b> states</b> que funcionam como variáveis que ficam dentro do nosso componente
+
+---
+
+# Component state - exemplo
+
+```js
+import React from 'react'\n
+class Component extends React.PureComponent {
+  state = { // definimos os states do component com os valores iniciais
+    count: 1
+  };\n
+  onChange = () => {
+    this.setState({ count: this.state.count + 1 });
+  };\n
+  render() {
+    return <button onClick={this.onChange}>{this.state.count}</button>;
+  }
+}
+```
+
+---
+
+# Component state
+
+Como vimos no ultimo exemplo, temos o método <b>setState</b> que recebe um
+objeto com os states que você quer modificar. Com o setState podemos
+modificar mais de um state, e causando somente um re-render!
+
+---
+
+# re-render
+
+O termo re-render se refere quando o componente renderiza novamente se caso
+sofrer alguma atualização seja ela por prop ou por state.
+
+---
+
+# Ciclo de vida
+
+Os componentes do react, possuem um ciclo de vida, onde eles são
+iniciados(didMount), são atualizados(didUpdate) e são
+desligados(didUnmount). Em alguns casos teremos que usar desses eventos para
+manipular o nosso componente, seja para iniciar uma função quando o
+componente for criado, ou quando ele for desligado.
+
+---
+
+# Ciclo de vida - exemplo
+
+```js
+import React from 'react'\n
+class Component extends React.PureComponent {
+  componentDidMount(){ } // método para quando o componente iniciou
+  componentDidUpdate(){ } // método para quando o componente sofreu uma atualização
+  componentDidUnmount(){ } // método para quando o componente é desligado/desmontado
+  render() {
+    return <h1>{this.props.text}</h1>;
+  }
+}
+```
+
+---
+
+# Ciclo de vida
+
+Existem outros métodos de ciclo de vida no componente do tipo class
+<br />
+  <ul>
+    <li>
+      componentWillMount (depreciado) - Usado para manipular o componente antes
+      dele ser construído
+    </li>
+    <li>
+      componentDidMount - Usado para quando o componente já foi renderizado pela
+      primeira vez
+    </li>
+    <li>
+      componentWillUpdate (depreciado) - Usado para quando o componente irá
+      atualizar
+    </li>
+    <li>
+      componentWillReceiveProps (depreciado) - Usado para quando o componente
+      irá receber novas props
+    </li>
+    <li>
+      componentDidUpdate - Usado para quando o componente sofre update por prop
+      ou state
+    </li>
+    <li>
+      componentDidCatch - Usado para pegarmos quando der algum Error no
+      componente
+    </li>
+    <li>
+      componentDidUnmount - Usado quando o componente é desmontado/desligado
+    </li>
+  </ul>
+
+---
+
+# React router dom
+
+O <b>react-router-dom</b> é uma lib de terceiros(não produzida pelo
+facebook) que é usada para manipularmos as rotas da nossa aplicação, ou
+seja, com essa lib podemos criar outras páginas e usa-las com links como se
+fosse que tivemos mais páginas htmls sem perder as vantagens do SPA
+
+---
+
+# Referências
+
+[Repositório com alguns testes :D](https://github.com/DavidDimon/awari-tests)
+[Documentação do react](https://pt-br.reactjs.org/docs/getting-started.html)
+[Documentação do react-router-dom](https://v5.reactrouter.com/web/guides/quick-start)
+[Repositório com várias questões sobre JavaScript](https://github.com/lydiahallie/javascript-questions/blob/master/pt-BR/README_pt_BR.md)
+
+---
+
+# Isso é tudo pessoal!
+
+Duvidas?
+<br />
+[Formulário para dúvidas](https://forms.gle/NE5p3juqxmDaXyj3A)

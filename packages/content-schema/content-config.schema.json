@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/DavidDimon/engineering-talks/content-config.schema.json",
+  "title": "Engineering Talks content configuration",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["repositoryUrl", "siteBasePath", "siteUrl"],
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "repositoryUrl": {
+      "type": "string",
+      "format": "uri"
+    },
+    "siteBasePath": {
+      "type": "string",
+      "pattern": "^/.+/$"
+    },
+    "siteUrl": {
+      "type": "string",
+      "format": "uri",
+      "pattern": "/$"
+    }
+  }
+}

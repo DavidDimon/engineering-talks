@@ -1,0 +1,28 @@
+{
+  "name": "@engineering-talks/presentation-templates",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "tsx --test presentation/**/*.test.ts",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "@engineering-talks/content-schema": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/node": "26.6.5",
+    "tsx": "4.23.15",
+    "typescript": "6.0.3"
+  },
+  "nx": {
+    "name": "presentation-templates",
+    "tags": [
+      "scope:shared",
+      "type:tool"
+    ],
+    "implicitDependencies": [
+      "content-schema"
+    ]
+  }
+}

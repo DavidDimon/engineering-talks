@@ -1,0 +1,6 @@
+{
+  "$schema": "./packages/content-schema/content-config.schema.json",
+  "repositoryUrl": "https://github.com/DavidDimon/engineering-talks",
+  "siteBasePath": "/engineering-talks/",
+  "siteUrl": "https://daviddimon.github.io/engineering-talks/"
+}

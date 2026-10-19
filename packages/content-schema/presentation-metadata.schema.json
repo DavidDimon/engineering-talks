@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/DavidDimon/engineering-talks/presentation-metadata.schema.json",
+  "title": "Engineering Talks presentation metadata",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "kind",
+    "slug",
+    "title",
+    "description",
+    "format",
+    "language",
+    "topics",
+    "level",
+    "deliveredAt",
+    "status",
+    "sourceUrl",
+    "migrationStatus"
+  ],
+  "properties": {
+    "$schema": { "type": "string" },
+    "schemaVersion": { "const": 2 },
+    "kind": { "const": "presentation" },
+    "slug": { "type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$" },
+    "title": { "type": "string", "minLength": 1 },
+    "description": { "type": "string", "minLength": 1 },
+    "format": { "enum": ["talk", "workshop", "training"] },
+    "language": { "type": "string", "minLength": 2 },
+    "topics": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 } },
+    "level": { "enum": ["beginner", "intermediate", "advanced", "all-levels"] },
+    "deliveredAt": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["year", "approximate"],
+      "properties": {
+        "year": { "type": "integer", "minimum": 2000, "maximum": 2100 },
+        "month": { "type": "integer", "minimum": 1, "maximum": 12 },
+        "day": { "type": "integer", "minimum": 1, "maximum": 31 },
+        "approximate": { "type": "boolean" }
+      },
+      "dependentRequired": { "day": ["month"] }
+    },
+    "status": { "enum": ["draft", "published", "archived"] },
+    "sourceUrl": { "type": "string", "format": "uri" },
+    "historicalNotice": { "type": "string", "minLength": 1 },
+    "durationMinutes": { "type": "integer", "minimum": 1 },
+    "migrationStatus": { "enum": ["native", "not-started", "in-progress", "migrated", "blocked"] }
+  }
+}

@@ -1,0 +1,189 @@
+---
+theme: default
+title: 'Componentes — parte 3'
+titleTemplate: '%s — Curso de front-end Awari'
+author: David Dimon
+transition: slide-left
+mdc: true
+---
+
+<script setup>
+import Intro from '../../shared/components/Intro.vue'
+import CourseImage from '../../shared/components/CourseImage.vue'
+import LessonNav from '../../shared/components/LessonNav.vue'
+import '../../shared/style.css'
+</script>
+
+<LessonNav
+  course-url="/engineering-talks/courses/awari-front-end/"
+  previous-url="/engineering-talks/courses/awari-front-end/aulas/15-componentes-parte-2/"
+  next-url="/engineering-talks/courses/awari-front-end/aulas/17-gerenciamento-de-estados/"
+/>
+
+<Intro title="Componentes parte 3" image="coding" />
+
+---
+
+# O que vamos ver hoje?
+
+<ul>
+    <v-clicks>
+      <li>Libraries para ui components</li>
+      <li>Tailwind</li>
+      <li>Chakra ui</li>
+      <li>Styled system</li>
+      <li>Dicas de responsividade</li>
+    </v-clicks>
+  </ul>
+
+---
+
+# Libraries de componentes
+
+Nem sempre precisamos criar os componentes tudo do zero. Existem muitas
+libraries com um montão de componentes para ajudar nós a criarmos as nossas
+aplicações, e também existem libraries mais especificas, com componentes
+especificos. Como componentes de video, carousel...etc
+
+---
+
+# Libraries de componentes - Como escolher?
+
+Sempre temos que ver alguns pontos da library e ver também se é compatível com
+o nosso projeto. Alguns pontos que são interessantes prestar atenção:
+<br />
+  <ul>
+    <li>Quantidade de stars no github</li>
+    <li>Quantidade de issues abertas</li>
+    <li>Documentação</li>
+    <li>Dificuldade em estilizar</li>
+  </ul>
+
+---
+
+# Libraries de componentes - Exemplos
+
+<ul>
+    <li>Chakra-ui(Aprovadissima!)</li>
+    <li>Tailwind(Selo david de qualidade)</li>
+    <li>Ant design(Possui alguns problemas, mas é muito boa)</li>
+    <li>
+      Reakit(Perfeita para um sistema que possui requisitos altos de
+      acessibilidade)
+    </li>
+    <li>Material-ui(Ótima para criar um sistema em pouco tempo)</li>
+  </ul>
+
+---
+
+# Chakra-ui
+
+O Chakra-ui é perfeito para criar design systems, pois possui a possibilidade
+de estilização via props com styled system, assim é fácil estilizar todos os
+componentes que ele disponibiliza.
+
+---
+
+# Tailwind
+
+O tailwind aposta nas classes css, super otimizado, pois na compilação do
+bundle, o tailwind remove todas as classes que o projeto não esta utilizando,
+e faz o bundle somente com as classes que estão sendo utilizadas, assim
+removendo e muito os css desnecessários
+
+---
+
+# Tailwind
+
+Tem um foco muito grande em responsividade, e na facilidade de implementacão
+de layouts, porém essa 'facilidade' vem com um preço, você precisa aprender os
+nomes das classes do tailwind.
+
+---
+
+# Styled-system
+
+O styled-system é uma library que vem para facilitar o uso do
+styled-components, com o styled system, podemos expor algumas propriedades de
+estilo de um componente.
+
+---
+
+# Styled-system
+
+A principio parece mais complexo, porém quanto mais componentes fazemos, mais
+chances da gente repetir certos estilos no styled-components, e quanto mais
+estilos com styled-components, mais arquivos de styles teremos. Com o styled
+system, tiramos um pouco da burocracia de estilizar um componente
+
+---
+
+# Styled-system - Exemplo
+
+```js
+{
+  ("import styled from 'styled-components'\nimport { color } from 'styled-system'\nconst Box = styled.div` \n  ${color}\n`");
+}
+```
+
+---
+
+# Styled-system - Exemplo
+
+```js
+import Box from './Box'\n
+const Component = () => <Box color="#fff" bgColor="#000"/>
+```
+
+---
+
+# Dicas de responsividade - breakpoints
+
+Devemos sempre criar breakpoints, para controlar nossos media queries, assim
+conseguimos fazer regras de renderização por tamanho de tela!
+<br />
+  <ul>
+    <li>320px - para mobile pequeno</li>
+    <li>425px - para mobile comum</li>
+    <li>768px - para tablet</li>
+    <li>1024px - para laptop ou telas menores</li>
+    <li>1440px - para desktop</li>
+  </ul>
+
+---
+
+# Dicas de responsividade - rem
+
+Podemos também controlar o tamanho dos nossos componentes com o sufixo rem,
+que é baseado no font-size, e dependendo do breakpoint que o nosso app
+estiver, podemos diminuir a porcentagem desse font-size ou aumentar para o
+layout se encaixar na tela.
+
+---
+
+# Alterando o font-size
+
+```js
+html {
+  @media (max-width: 425px){
+    font-size: 85%;
+  }
+}
+```
+
+---
+
+# Referências
+
+[Repositório com alguns testes :D](https://github.com/DavidDimon/awari-tests)
+[Styled system](https://styled-system.com/getting-started)
+[Tailwind css](https://tailwindcss.com/)
+[Chakra ui](https://chakra-ui.com/docs/getting-started)
+
+---
+
+# Isso é tudo pessoal!
+
+Duvidas?
+<br />
+[Formulário para dúvidas](https://forms.gle/NE5p3juqxmDaXyj3A)

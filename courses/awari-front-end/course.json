@@ -1,0 +1,147 @@
+{
+  "$schema": "../../packages/content-schema/course.schema.json",
+  "schemaVersion": 2,
+  "kind": "course",
+  "slug": "awari-front-end",
+  "title": "Curso de front-end Awari",
+  "description": "Curso de formação em desenvolvimento front-end ministrado na Awari, organizado em 23 aulas.",
+  "format": "training",
+  "language": "pt-BR",
+  "topics": ["frontend", "html", "css", "javascript", "react"],
+  "status": "published",
+  "sourceUrl": "https://github.com/DavidDimon/awari-front-end",
+  "historicalNotice": "Este conteúdo reflete o estado da tecnologia no período em que o curso foi produzido.",
+  "provider": "Awari",
+  "role": "Instrutor",
+  "period": { "startYear": 2021, "endYear": 2022 },
+  "lessons": [
+    {
+      "order": 1,
+      "slug": "01-introducao-ao-desenvolvimento-web",
+      "title": "Introdução ao desenvolvimento web",
+      "topics": ["web"]
+    },
+    {
+      "order": 2,
+      "slug": "02-introducao-ao-terminal-e-git",
+      "title": "Introdução ao terminal e Git",
+      "topics": ["terminal", "git"]
+    },
+    {
+      "order": 3,
+      "slug": "03-introducao-ao-html",
+      "title": "Introdução ao HTML",
+      "topics": ["html"]
+    },
+    {
+      "order": 4,
+      "slug": "04-introducao-a-estilizacao-e-css",
+      "title": "Introdução à estilização e CSS",
+      "topics": ["css"]
+    },
+    {
+      "order": 5,
+      "slug": "05-introducao-a-estilizacao-e-css-parte-2",
+      "title": "Introdução à estilização e CSS — parte 2",
+      "topics": ["css", "layout-responsivo"]
+    },
+    {
+      "order": 6,
+      "slug": "06-introducao-a-programacao",
+      "title": "Introdução à programação",
+      "topics": ["programacao"]
+    },
+    {
+      "order": 7,
+      "slug": "07-introducao-ao-javascript",
+      "title": "Introdução ao JavaScript",
+      "topics": ["javascript"]
+    },
+    {
+      "order": 8,
+      "slug": "08-o-javascript-contra-ataca",
+      "title": "O JavaScript contra-ataca",
+      "topics": ["javascript"]
+    },
+    {
+      "order": 9,
+      "slug": "09-javascript-contra-ataca-parte-2",
+      "title": "JavaScript contra-ataca — parte 2",
+      "topics": ["javascript", "es6"]
+    },
+    {
+      "order": 10,
+      "slug": "10-objetos-classes-e-muito-mais",
+      "title": "Objetos, classes e muito mais!",
+      "topics": ["javascript", "orientacao-a-objetos"]
+    },
+    {
+      "order": 11,
+      "slug": "11-errors-promises-regex-e-dom",
+      "title": "Errors, Promises, Regex e DOM",
+      "topics": ["javascript", "dom", "promises"]
+    },
+    {
+      "order": 12,
+      "slug": "12-introducao-ao-react",
+      "title": "Introdução ao React",
+      "topics": ["react"]
+    },
+    {
+      "order": 13,
+      "slug": "13-introducao-ao-react-parte-2",
+      "title": "Introdução ao React — parte 2",
+      "topics": ["react", "componentes"]
+    },
+    {
+      "order": 14,
+      "slug": "14-functional-component",
+      "title": "Functional Component",
+      "topics": ["react", "hooks"]
+    },
+    {
+      "order": 15,
+      "slug": "15-componentes-parte-2",
+      "title": "Componentes — parte 2",
+      "topics": ["react", "componentes"]
+    },
+    {
+      "order": 16,
+      "slug": "16-componentes-parte-3",
+      "title": "Componentes — parte 3",
+      "topics": ["react", "componentes", "responsividade"]
+    },
+    {
+      "order": 17,
+      "slug": "17-gerenciamento-de-estados",
+      "title": "Gerenciamento de estados",
+      "topics": ["react", "estado"]
+    },
+    {
+      "order": 18,
+      "slug": "18-gerenciamento-de-estados-parte-2",
+      "title": "Gerenciamento de estados — parte 2",
+      "topics": ["react", "estado"]
+    },
+    {
+      "order": 19,
+      "slug": "19-formularios",
+      "title": "Formulários",
+      "topics": ["react", "formularios"]
+    },
+    { "order": 20, "slug": "20-typescript", "title": "TypeScript", "topics": ["typescript"] },
+    {
+      "order": 21,
+      "slug": "21-integracoes-com-api-rest",
+      "title": "Integrações com API REST",
+      "topics": ["api", "rest", "react"]
+    },
+    {
+      "order": 22,
+      "slug": "22-graphql-e-arquitetura-de-software",
+      "title": "GraphQL e arquitetura de software",
+      "topics": ["graphql", "arquitetura"]
+    },
+    { "order": 23, "slug": "23-seo-e-ssr", "title": "SEO e SSR", "topics": ["seo", "ssr"] }
+  ]
+}

@@ -1,0 +1,51 @@
+{
+  "name": "@engineering-talks/content-tools",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "tsx src/cli.ts generate --root ../..",
+    "test": "tsx --test src/**/*.test.ts",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "validate": "tsx src/cli.ts validate --root ../.."
+  },
+  "dependencies": {
+    "@engineering-talks/content-schema": "workspace:*",
+    "zod": "4.6.7"
+  },
+  "devDependencies": {
+    "@types/node": "26.6.5",
+    "tsx": "4.23.15",
+    "typescript": "6.0.3"
+  },
+  "nx": {
+    "name": "content-tools",
+    "tags": [
+      "scope:shared",
+      "type:tool"
+    ],
+    "implicitDependencies": [
+      "content-schema"
+    ],
+    "targets": {
+      "build": {
+        "inputs": [
+          "default",
+          "^production",
+          "contentSources"
+        ],
+        "outputs": [
+          "{workspaceRoot}/dist/content/catalog.json",
+          "{workspaceRoot}/apps/showcase/src/generated/catalog.json"
+        ]
+      },
+      "validate": {
+        "inputs": [
+          "default",
+          "^production",
+          "contentSources"
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,256 @@
+---
+theme: default
+title: 'JavaScript contra-ataca — parte 2'
+titleTemplate: '%s — Curso de front-end Awari'
+author: David Dimon
+transition: slide-left
+mdc: true
+---
+
+<script setup>
+import Intro from '../../shared/components/Intro.vue'
+import CourseImage from '../../shared/components/CourseImage.vue'
+import LessonNav from '../../shared/components/LessonNav.vue'
+import '../../shared/style.css'
+</script>
+
+<LessonNav
+  course-url="/engineering-talks/courses/awari-front-end/"
+  previous-url="/engineering-talks/courses/awari-front-end/aulas/08-o-javascript-contra-ataca/"
+  next-url="/engineering-talks/courses/awari-front-end/aulas/10-objetos-classes-e-muito-mais/"
+/>
+
+<Intro title="JavaScript contra-ataca parte 2" image="coding" />
+
+---
+
+# O que vamos ver hoje?
+
+<ul>
+    <v-clicks>
+      <li>ECMAScript</li>
+      <li>Diferenças entre JavaScript e o ES6</li>
+      <li>Tipos de escopo</li>
+      <li>Funções</li>
+      <li>Hoisting</li>
+      <li>Parâmetros de uma função</li>
+      <li>Callback</li>
+    </v-clicks>
+  </ul>
+
+---
+
+# ECMAScript 6 ou ES6
+
+O ECMAScript 6 é um padronização da linguagem JavaScript, esta versão que foi
+lançada em 2015, que trouxe dezenas de recursos e funcionalidades que vieram
+para padronizar e trazer mais qualidade a linguagem.
+
+---
+
+# Diferenças entre JavaScript e o ES6
+
+O ES6 seria apenas um indicator da última versão da padronização do
+JavaScript. O ECMAScript e o JavaScript são a mesma linguagem de programação,
+porém por questões comerciais, decidiram lançar elas no mercado com nomes
+diferentes!
+
+---
+
+# Tipos de escopo
+
+Antes de vir o ES6, o JavaScript possuia 2 tipos de escopo, que seria o escopo
+global, que engloba todo o software, ou seja, se uma variável é definida nesse
+escopo, ela pode ser acessada em qualquer lugar, e o escopo local ou escopo da
+função, ou seja, se caso uma variável for definida no escopo da função, só
+poderá ser acessada naquela função.
+
+---
+
+# Tipos de escopo
+
+Porém na versão do ES6, veio um terceiro tipo de escopo, o escopo de bloco
+que seria o escopo exclusivo de um If, while, case ou for, e para utilizar
+esse escopo, foram criadas dois tipos de váriaveis novos, que são o
+<b> let</b> e o <b>const</b>
+
+---
+
+# Tipos de escopo - Global
+
+```js
+// inicio do escopo global
+function test() {
+  console.log('test');
+}
+test();
+// fim do escopo global
+```
+
+---
+
+# Tipos de escopo - Local
+
+```js
+// início do escopo global
+function test() {
+  // início do escopo local/função
+  console.log('test');
+  // fim do escopo local/função
+}
+test();
+// fim do escopo global
+```
+
+---
+
+# Tipos de escopo - Bloco
+
+```js
+// início do escopo global
+function test() {
+  // início do escopo local/função
+  console.log('test');
+  if (true) {
+    // início do escopo bloco
+    console.log('bloco');
+    // fim do escopo bloco
+  }
+  // fim do escopo local/função
+}
+test();
+// fim do escopo global
+```
+
+---
+
+# Funções
+
+Como vimos em algumas aulas anteriores, existem várias formas de declarar
+funções, mas em qual situação cada uma das formas é mais indicada?
+
+---
+
+# Funções - named function
+
+As funções named <b>{'function functionName(){ ... }'}</b> são as mais
+comuns, pois facilitam o debug e sofrem o fenomeno de hoisting.
+
+---
+
+# Funções - Hoisting
+
+Durante o build, a engine javascript identifica a função pela palavra
+reservada <b>function</b> e coloca essa função na memória antes de tudo, com
+isso, conseguimos executar uma função antes de declara-la no escopo.
+
+---
+
+# Hoisting - Exemplo
+
+```js
+test();
+function test() {
+  console.log('test');
+}
+```
+
+---
+
+# Funções - Anonymous
+
+As funções anônimas são ótimas para quando precisamos definir uma função
+simples em algum paramêtro de alguma outra função ou quando precisamos
+atribuir uma função em uma variável.
+
+---
+
+# Funções - Anonymous
+
+```js
+console.log(
+  [1, 2, 3].map(function (number) {
+    return number + 1;
+  }),
+);
+```
+
+---
+
+# Funções - Arrow
+
+As arrow function ou funções de seta, vieram com a versão do ecmaScript 6, e
+vieram com o intuito de facilitar mais a criação de funções, porém com isso
+vem um preço, as funções de arrow function não sofrem hoisting.
+
+---
+
+# Funções - Anonymous
+
+```js
+console.log([1, 2, 3].map((number) => number + 1));
+```
+
+---
+
+# Funções - parâmetros
+
+Algo essêncial para as nossas funções, são os parâmetros, no JavaScript
+podemos definir parâmetros de vários tipos diferentes, até outras funções!
+
+---
+
+# Funções - parâmetros
+
+```js
+const showName = (name, log) => {
+  log(name);
+};
+showName('zézin da function', console.log);
+```
+
+---
+
+# Funções - parâmetros 2
+
+```js
+const showName = (name = 'zezin', log = console.log) => {
+  log(name);
+};
+showName('zézin da function');
+```
+
+---
+
+# Callbacks
+
+Em alguns casos queremos passar alguma função para que seja executada em algum
+momento no escopo da função que esta recebendo o parâmetro
+
+---
+
+# Callbacks - Exemplo
+
+```js
+const showName = (name, log) => {
+  log(name);
+};
+showName('zézin da function', (name) => console.log(name));
+```
+
+---
+
+# Referências
+
+[Repositório com alguns testes :D](https://github.com/DavidDimon/awari-tests)
+[ECMAScript](https://www.ecma-international.org/publications-and-standards/standards/ecma-262/)
+[Tipos de escopo](https://medium.com/weyes/entendendo-o-uso-de-escopo-no-javascript-3669172ca5ba)
+[Artigo sobre funções](https://medium.com/reactbrasil/como-o-javascript-funciona-entendendo-as-fun%C3%A7%C3%B5es-e-suas-formas-de-uso-eb387c7fa138)
+
+---
+
+# Isso é tudo pessoal!
+
+Duvidas?
+<br />
+[Formulário para dúvidas](https://forms.gle/NE5p3juqxmDaXyj3A)

@@ -1,0 +1,39 @@
+{
+  "name": "@engineering-talks/pages",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node assemble.mjs"
+  },
+  "nx": {
+    "name": "pages",
+    "tags": [
+      "scope:shared",
+      "type:tool"
+    ],
+    "implicitDependencies": [
+      "showcase",
+      "talk-mdx-deck",
+      "talk-flutter",
+      "talk-monorepos-and-core-components",
+      "talk-state-management",
+      "talk-software-testing",
+      "course-awari-front-end"
+    ],
+    "targets": {
+      "build": {
+        "dependsOn": [
+          "^build"
+        ],
+        "inputs": [
+          "default",
+          "^production"
+        ],
+        "outputs": [
+          "{workspaceRoot}/dist/pages"
+        ]
+      }
+    }
+  }
+}

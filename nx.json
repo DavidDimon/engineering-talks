@@ -1,0 +1,55 @@
+{
+  "$schema": "./node_modules/nx/schemas/nx-schema.json",
+  "defaultBase": "main",
+  "namedInputs": {
+    "contentSources": [
+      "{workspaceRoot}/content.config.json",
+      "{workspaceRoot}/presentations/*/metadata.json",
+      "{workspaceRoot}/presentations/*/slides.md",
+      "{workspaceRoot}/courses/*/course.json",
+      "{workspaceRoot}/courses/*/index.html",
+      "{workspaceRoot}/courses/*/lessons/*/slides.md"
+    ],
+    "default": ["{projectRoot}/**/*", "sharedGlobals"],
+    "production": [
+      "default",
+      "!{projectRoot}/**/*.{spec,test}.{js,jsx,ts,tsx}",
+      "!{projectRoot}/**/test/**",
+      "!{projectRoot}/**/tests/**"
+    ],
+    "sharedGlobals": [
+      "{workspaceRoot}/eslint.config.mjs",
+      "{workspaceRoot}/playwright.config.ts",
+      "{workspaceRoot}/pnpm-lock.yaml",
+      "{workspaceRoot}/tsconfig.base.json"
+    ]
+  },
+  "plugins": [
+    {
+      "plugin": "@nx/eslint/plugin",
+      "options": {
+        "targetName": "lint"
+      }
+    }
+  ],
+  "targetDefaults": {
+    "build": {
+      "cache": true,
+      "dependsOn": ["^build"],
+      "inputs": ["production", "^production"]
+    },
+    "lint": {
+      "cache": true,
+      "inputs": ["default", "{workspaceRoot}/eslint.config.mjs"]
+    },
+    "test": {
+      "cache": true,
+      "inputs": ["default", "^production"]
+    },
+    "typecheck": {
+      "cache": true,
+      "dependsOn": ["^typecheck"],
+      "inputs": ["default", "^production"]
+    }
+  }
+}

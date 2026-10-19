@@ -1,0 +1,17 @@
+{
+  "$schema": "../../packages/content-schema/presentation-metadata.schema.json",
+  "schemaVersion": 2,
+  "kind": "presentation",
+  "slug": "monorepos-and-core-components",
+  "title": "Monorepos e core components",
+  "description": "Uma apresentação histórica sobre monorepos e o compartilhamento de componentes centrais.",
+  "format": "talk",
+  "language": "pt-BR",
+  "topics": ["monorepos", "componentes", "arquitetura"],
+  "level": "all-levels",
+  "deliveredAt": { "year": 2019, "month": 12, "approximate": true },
+  "status": "published",
+  "sourceUrl": "https://github.com/DavidDimon/monorepo-keynote",
+  "historicalNotice": "Este conteúdo reflete o estado da tecnologia na época em que foi produzido.",
+  "migrationStatus": "migrated"
+}

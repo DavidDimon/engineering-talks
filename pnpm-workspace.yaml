@@ -1,0 +1,16 @@
+packages:
+  - 'apps/*'
+  - 'courses/*'
+  - 'packages/*'
+  - 'presentations/*'
+  - 'talks/*'
+  - 'tools/*'
+
+allowBuilds:
+  esbuild: true
+  nx: true
+engineStrict: true
+linkWorkspacePackages: true
+saveExact: true
+saveWorkspaceProtocol: rolling
+sharedWorkspaceLockfile: true

@@ -1,0 +1,6 @@
+@import '../mdx-deck/style.css';
+
+:root {
+  --deck-background: #272425;
+  --deck-accent: #f2c94c;
+}
