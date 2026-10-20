@@ -6,6 +6,7 @@ import type {
 } from '@engineering-talks/content-schema';
 
 import catalogData from '../generated/catalog.json';
+import type { Locale } from './i18n.js';
 
 export type CatalogFilters = {
   query: string;
@@ -53,22 +54,33 @@ export function filterPresentations(
   });
 }
 
-export function formatLabel(value: string): string {
+export function formatLabel(value: string, locale: Locale = 'en'): string {
   return value
     .split('-')
-    .map((part) => part.charAt(0).toLocaleUpperCase('pt-BR') + part.slice(1))
+    .map((part) => part.charAt(0).toLocaleUpperCase(locale) + part.slice(1))
     .join(' ');
 }
 
-export function formatDeliveredAt(date: DeliveredAt): string {
+export function formatDeliveredAt(date: DeliveredAt, locale: Locale = 'en'): string {
   const formatted = date.month
-    ? new Intl.DateTimeFormat('pt-BR', { month: 'long', year: 'numeric', timeZone: 'UTC' }).format(
+    ? new Intl.DateTimeFormat(locale, { month: 'long', year: 'numeric', timeZone: 'UTC' }).format(
         new Date(Date.UTC(date.year, date.month - 1, date.day ?? 1)),
       )
     : String(date.year);
-  return date.approximate ? `${formatted} · data aproximada` : formatted;
+  const approximate = locale === 'pt-BR' ? 'data aproximada' : 'approximate date';
+  return date.approximate ? `${formatted} · ${approximate}` : formatted;
 }
 
 export function localPath(url: string): string {
   return new URL(url).pathname;
+}
+
+export function presentationPath(url: string, locale: Locale): string {
+  const path = localPath(url);
+  return locale === 'pt-BR' ? `${path}pt-BR/` : path;
+}
+
+export function lessonPath(url: string, locale: Locale): string {
+  const path = localPath(url);
+  return locale === 'pt-BR' ? `${path}pt-BR/` : path;
 }

@@ -4,11 +4,11 @@ Engineering Talks is David Dimon's open-source archive of technical presentation
 resources. It preserves historical material while providing independently buildable Slidev
 presentations and a lightweight public showcase.
 
-The repository has completed **M9 — Awari course and final delivery**. The Portuguese portfolio
-experience presents five migrated historical talks and the complete 23-lesson Awari front-end
-course with validated dates, provenance, permanent URLs, responsive layouts, and accessible light
-and dark themes. Every item is built locally with Slidev and assembled into the GitHub Pages
-artifact without relying on legacy deployments.
+The repository has completed **M9 — Awari course and final delivery**. The bilingual English and
+Portuguese portfolio presents five translated historical talks and the complete 23-lesson Awari
+front-end course with validated dates, provenance, permanent URLs, responsive layouts, and
+accessible light and dark themes. Every item is built locally with Slidev and assembled into the
+GitHub Pages artifact without relying on legacy deployments.
 
 The completed migration is documented in the
 [showcase portfolio plan](docs/roadmap/showcase-portfolio-plan.md).
@@ -56,6 +56,11 @@ Run the showcase locally with:
 ```bash
 pnpm nx dev showcase
 ```
+
+The development command builds and serves both language variants of every presentation and all
+Awari lesson decks before starting Vite, so links under `/engineering-talks/presentations/` and
+`/engineering-talks/courses/awari-front-end/aulas/` work exactly as they do in the published
+artifact.
 
 Install Chromium once before running browser tests locally:
 

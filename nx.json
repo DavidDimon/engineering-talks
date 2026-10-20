@@ -6,9 +6,11 @@
       "{workspaceRoot}/content.config.json",
       "{workspaceRoot}/presentations/*/metadata.json",
       "{workspaceRoot}/presentations/*/slides.md",
+      "{workspaceRoot}/presentations/*/slides.en.md",
       "{workspaceRoot}/courses/*/course.json",
       "{workspaceRoot}/courses/*/index.html",
-      "{workspaceRoot}/courses/*/lessons/*/slides.md"
+      "{workspaceRoot}/courses/*/lessons/*/slides.md",
+      "{workspaceRoot}/courses/*/lessons/*/slides.en.md"
     ],
     "default": ["{projectRoot}/**/*", "sharedGlobals"],
     "production": [
@@ -51,5 +53,6 @@
       "dependsOn": ["^typecheck"],
       "inputs": ["default", "^production"]
     }
-  }
+  },
+  "analytics": false
 }

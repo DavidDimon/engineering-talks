@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "build": "vite build",
-    "dev": "vite",
+    "dev": "pnpm run dev:prepare && vite",
+    "dev:prepare": "node ../../tools/pages/build-bilingual-presentation.mjs mdx-deck flutter monorepos-and-core-components state-management software-testing && node ../../courses/awari-front-end/build.mjs",
     "preview": "vite preview",
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },

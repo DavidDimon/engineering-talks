@@ -11,12 +11,20 @@ import {
   filterPresentations,
   formatDeliveredAt,
   formatLabel,
+  lessonPath,
   localPath,
+  presentationPath,
   presentations as catalogPresentations,
-  topicOptions,
   yearOptions,
   type CatalogFilters,
 } from './catalog.js';
+import {
+  localizeCourse,
+  localizeLesson,
+  localizePresentation,
+  localizeTopic,
+} from './content-translations.js';
+import { localeQuery, useI18n } from './i18n.js';
 
 const homePath = '/engineering-talks/';
 const defaultFilters: CatalogFilters = { query: '', topic: 'all', year: 'all' };
@@ -69,6 +77,7 @@ function usePageMetadata(title: string, description: string) {
 }
 
 function SiteFrame({ children }: { children: ReactNode }) {
+  const { locale, setLocale, t } = useI18n();
   const [darkMode, setDarkMode] = useState(() => {
     const saved = window.localStorage.getItem('showcase-theme');
     return saved ? saved === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -82,10 +91,14 @@ function SiteFrame({ children }: { children: ReactNode }) {
   return (
     <>
       <a className="skip-link" href="#conteudo">
-        Pular para o conteúdo
+        {t('skipContent')}
       </a>
       <header className="site-header">
-        <a className="brand" href={homePath} aria-label="David Dimon — Engineering Talks">
+        <a
+          className="brand"
+          href={`${homePath}${localeQuery(locale)}`}
+          aria-label="David Dimon — Engineering Talks"
+        >
           <span className="brand__mark" aria-hidden="true">
             DD
           </span>
@@ -94,22 +107,36 @@ function SiteFrame({ children }: { children: ReactNode }) {
             <small>Engineering Talks</small>
           </span>
         </a>
-        <button
-          className="theme-toggle"
-          type="button"
-          aria-label={`Mudar para o tema ${darkMode ? 'claro' : 'escuro'}`}
-          aria-pressed={darkMode}
-          onClick={() => setDarkMode((current) => !current)}
-        >
-          <span aria-hidden="true">{darkMode ? '☀' : '☾'}</span>
-          <span>{darkMode ? 'Tema claro' : 'Tema escuro'}</span>
-        </button>
+        <div className="header-actions">
+          <div className="language-switcher" role="group" aria-label={t('language')}>
+            <button type="button" aria-pressed={locale === 'en'} onClick={() => setLocale('en')}>
+              EN
+            </button>
+            <button
+              type="button"
+              aria-pressed={locale === 'pt-BR'}
+              onClick={() => setLocale('pt-BR')}
+            >
+              PT
+            </button>
+          </div>
+          <button
+            className="theme-toggle"
+            type="button"
+            aria-label={t('changeTheme', { theme: darkMode ? t('light') : t('dark') })}
+            aria-pressed={darkMode}
+            onClick={() => setDarkMode((current) => !current)}
+          >
+            <span aria-hidden="true">{darkMode ? '☀' : '☾'}</span>
+            <span>{darkMode ? t('lightTheme') : t('darkTheme')}</span>
+          </button>
+        </div>
       </header>
       {children}
       <footer>
-        <p>Um arquivo pessoal de ideias compartilhadas ao longo da carreira.</p>
+        <p>{t('footer')}</p>
         <a href="https://github.com/DavidDimon/engineering-talks">
-          Ver repositório <span aria-hidden="true">↗</span>
+          {t('repository')} <span aria-hidden="true">↗</span>
         </a>
       </footer>
     </>
@@ -117,31 +144,33 @@ function SiteFrame({ children }: { children: ReactNode }) {
 }
 
 function PresentationCard({ presentation }: { presentation: PresentationCatalogItem }) {
+  const { locale, t } = useI18n();
+  const localized = localizePresentation(presentation, locale);
   return (
     <article className="card presentation-card">
       <div className="card__topline">
-        <span className="eyebrow">{formatLabel(presentation.format)}</span>
-        <span>{formatDeliveredAt(presentation.deliveredAt)}</span>
+        <span className="eyebrow">{formatLabel(localized.format, locale)}</span>
+        <span>{formatDeliveredAt(localized.deliveredAt, locale)}</span>
       </div>
       <div>
-        <h3>{presentation.title}</h3>
-        <p>{presentation.description}</p>
+        <h3>{localized.title}</h3>
+        <p>{localized.description}</p>
       </div>
-      <ul className="topic-list" aria-label={`Temas de ${presentation.title}`}>
-        {presentation.topics.map((topic) => (
-          <li key={topic}>{formatLabel(topic)}</li>
+      <ul className="topic-list" aria-label={t('topicsOf', { title: localized.title })}>
+        {localized.topics.map((topic) => (
+          <li key={topic}>{formatLabel(topic, locale)}</li>
         ))}
       </ul>
       <div className="card__actions">
-        {presentation.presentationUrl ? (
-          <a className="button" href={localPath(presentation.presentationUrl)}>
-            Abrir apresentação <span aria-hidden="true">↗</span>
+        {localized.presentationUrl ? (
+          <a className="button" href={presentationPath(localized.presentationUrl, locale)}>
+            {t('openPresentation')} <span aria-hidden="true">↗</span>
           </a>
         ) : (
-          <span className="migration-note">Apresentação em migração</span>
+          <span className="migration-note">{t('migrating')}</span>
         )}
-        <a className="text-link" href={presentation.sourceUrl}>
-          Ver código original <span aria-hidden="true">↗</span>
+        <a className="text-link" href={localized.sourceUrl}>
+          {t('source')} <span aria-hidden="true">↗</span>
         </a>
       </div>
     </article>
@@ -149,37 +178,41 @@ function PresentationCard({ presentation }: { presentation: PresentationCatalogI
 }
 
 function CourseCard({ course }: { course: CourseCatalogItem }) {
+  const { locale, t } = useI18n();
+  const localized = localizeCourse(course, locale);
   return (
     <article className="course-card">
       <div>
-        <p className="kicker">Curso · {course.provider}</p>
-        <h3>{course.title}</h3>
-        <p>{course.description}</p>
+        <p className="kicker">
+          {t('course')} · {localized.provider}
+        </p>
+        <h3>{localized.title}</h3>
+        <p>{localized.description}</p>
       </div>
       <dl className="course-card__facts">
         <div>
-          <dt>Período</dt>
+          <dt>{t('period')}</dt>
           <dd>
             {course.period.startYear}–{course.period.endYear}
           </dd>
         </div>
         <div>
-          <dt>Papel</dt>
-          <dd>{course.role}</dd>
+          <dt>{t('role')}</dt>
+          <dd>{localized.role}</dd>
         </div>
         <div>
-          <dt>Conteúdo</dt>
-          <dd>{course.lessons.length} aulas</dd>
+          <dt>{t('content')}</dt>
+          <dd>{t('lessonsCount', { count: localized.lessons.length })}</dd>
         </div>
       </dl>
       <div className="card__actions">
         {course.courseUrl ? (
           <a className="button" href={localPath(course.courseUrl)}>
-            Ver aulas <span aria-hidden="true">→</span>
+            {t('viewLessons')} <span aria-hidden="true">→</span>
           </a>
         ) : null}
         <a className="text-link" href={course.sourceUrl}>
-          Ver código original <span aria-hidden="true">↗</span>
+          {t('source')} <span aria-hidden="true">↗</span>
         </a>
       </div>
     </article>
@@ -187,10 +220,8 @@ function CourseCard({ course }: { course: CourseCatalogItem }) {
 }
 
 function HomePage() {
-  usePageMetadata(
-    'David Dimon — Engineering Talks',
-    'Arquivo pessoal de apresentações técnicas e cursos criados e compartilhados por David Dimon.',
-  );
+  const { locale, t } = useI18n();
+  usePageMetadata('David Dimon — Engineering Talks', t('metaDescription'));
   const [filters, setFilters] = useState<CatalogFilters>(() => {
     const parameters = new URLSearchParams(window.location.search);
     const rawYear = Number(parameters.get('ano'));
@@ -200,9 +231,20 @@ function HomePage() {
       year: yearOptions.includes(rawYear) ? rawYear : 'all',
     };
   });
+  const localizedPresentations = useMemo(
+    () => catalogPresentations.map((presentation) => localizePresentation(presentation, locale)),
+    [locale],
+  );
+  const localizedTopicOptions = useMemo(
+    () =>
+      Array.from(
+        new Set(localizedPresentations.flatMap((presentation) => presentation.topics)),
+      ).sort((left, right) => left.localeCompare(right, locale)),
+    [locale, localizedPresentations],
+  );
   const presentations = useMemo(
-    () => filterPresentations(catalogPresentations, filters),
-    [filters],
+    () => filterPresentations(localizedPresentations, filters),
+    [filters, localizedPresentations],
   );
 
   useEffect(() => {
@@ -210,9 +252,19 @@ function HomePage() {
     if (filters.query.trim()) parameters.set('busca', filters.query.trim());
     if (filters.year !== 'all') parameters.set('ano', String(filters.year));
     if (filters.topic !== 'all') parameters.set('tema', filters.topic);
+    if (locale === 'pt-BR') parameters.set('lang', locale);
     const query = parameters.toString();
     window.history.replaceState(null, '', `${homePath}${query ? `?${query}` : ''}`);
-  }, [filters]);
+  }, [filters, locale]);
+
+  useEffect(() => {
+    if (filters.topic === 'all' || localizedTopicOptions.includes(filters.topic)) return;
+    const translatedTopic = localizeTopic(filters.topic, locale);
+    updateFilter(
+      'topic',
+      localizedTopicOptions.includes(translatedTopic) ? translatedTopic : 'all',
+    );
+  }, [filters.topic, locale, localizedTopicOptions]);
 
   function updateFilter<Key extends keyof CatalogFilters>(key: Key, value: CatalogFilters[Key]) {
     setFilters((current) => ({ ...current, [key]: value }));
@@ -222,25 +274,28 @@ function HomePage() {
     <SiteFrame>
       <main id="conteudo">
         <section className="hero" aria-labelledby="page-title">
-          <p className="kicker">Apresentações técnicas · 2019—2022</p>
+          <p className="kicker">{t('heroKicker')}</p>
           <h1 id="page-title">
-            Ideias de engenharia,
-            <br /> preservadas no tempo.
+            {t('heroTitle')
+              .split('\n')
+              .map((line, index) => (
+                <span key={line}>
+                  {index > 0 ? <br /> : null}
+                  {line}
+                </span>
+              ))}
           </h1>
-          <p className="hero__summary">
-            Um acervo das apresentações e aulas que criei e compartilhei ao longo da minha carreira
-            — mantidas com o contexto da época e abertas para consulta.
-          </p>
-          <div className="hero__stats" aria-label="Resumo do acervo">
+          <p className="hero__summary">{t('heroSummary')}</p>
+          <div className="hero__stats" aria-label={t('archiveSummary')}>
             <span>
-              <strong>{catalogPresentations.length}</strong> apresentações
+              <strong>{catalogPresentations.length}</strong> {t('presentationsCount')}
             </span>
             <span>
               <strong>{courses.reduce((total, course) => total + course.lessons.length, 0)}</strong>{' '}
-              aulas
+              {t('lessons')}
             </span>
             <span>
-              <strong>{catalog.items.length}</strong> coleções
+              <strong>{catalog.items.length}</strong> {t('collections')}
             </span>
           </div>
         </section>
@@ -248,26 +303,29 @@ function HomePage() {
         <section className="collection" aria-labelledby="presentations-title">
           <div className="section-heading">
             <div>
-              <p className="kicker">Arquivo de apresentações</p>
-              <h2 id="presentations-title">Apresentações</h2>
+              <p className="kicker">{t('presentationArchive')}</p>
+              <h2 id="presentations-title">{t('presentations')}</h2>
             </div>
             <p className="result-count" aria-live="polite">
-              {presentations.length} de {catalogPresentations.length}
+              {t('resultCount', {
+                shown: presentations.length,
+                total: catalogPresentations.length,
+              })}
             </p>
           </div>
 
           <form className="filters" role="search" onSubmit={(event) => event.preventDefault()}>
             <label className="search-field">
-              <span>Buscar no acervo</span>
+              <span>{t('searchArchive')}</span>
               <input
                 type="search"
                 value={filters.query}
-                placeholder="Título, tema ou descrição"
+                placeholder={t('searchPlaceholder')}
                 onChange={(event) => updateFilter('query', event.currentTarget.value)}
               />
             </label>
             <label>
-              <span>Ano</span>
+              <span>{t('year')}</span>
               <select
                 value={filters.year}
                 onChange={(event) =>
@@ -277,7 +335,7 @@ function HomePage() {
                   )
                 }
               >
-                <option value="all">Todos os anos</option>
+                <option value="all">{t('allYears')}</option>
                 {yearOptions.map((year) => (
                   <option key={year} value={year}>
                     {year}
@@ -286,15 +344,15 @@ function HomePage() {
               </select>
             </label>
             <label>
-              <span>Tema</span>
+              <span>{t('topic')}</span>
               <select
                 value={filters.topic}
                 onChange={(event) => updateFilter('topic', event.currentTarget.value)}
               >
-                <option value="all">Todos os temas</option>
-                {topicOptions.map((topic) => (
+                <option value="all">{t('allTopics')}</option>
+                {localizedTopicOptions.map((topic) => (
                   <option key={topic} value={topic}>
-                    {formatLabel(topic)}
+                    {formatLabel(topic, locale)}
                   </option>
                 ))}
               </select>
@@ -309,11 +367,11 @@ function HomePage() {
             </div>
           ) : (
             <div className="empty-state">
-              <p className="kicker">Nenhum resultado</p>
-              <h3>Tente uma busca mais ampla.</h3>
-              <p>Limpe um ou mais filtros para rever o acervo completo.</p>
+              <p className="kicker">{t('noResults')}</p>
+              <h3>{t('broaderSearch')}</h3>
+              <p>{t('clearHint')}</p>
               <button className="button" type="button" onClick={() => setFilters(defaultFilters)}>
-                Limpar filtros
+                {t('clearFilters')}
               </button>
             </div>
           )}
@@ -322,8 +380,8 @@ function HomePage() {
         <section className="collection collection--courses" aria-labelledby="courses-title">
           <div className="section-heading">
             <div>
-              <p className="kicker">Formação compartilhada</p>
-              <h2 id="courses-title">Cursos</h2>
+              <p className="kicker">{t('sharedLearning')}</p>
+              <h2 id="courses-title">{t('courses')}</h2>
             </div>
           </div>
           <div className="course-grid">
@@ -338,38 +396,43 @@ function HomePage() {
 }
 
 function CoursePage({ course }: { course: CourseCatalogItem }) {
+  const { locale, t } = useI18n();
+  const localized = localizeCourse(course, locale);
   usePageMetadata(
-    `${course.title} — David Dimon`,
-    `${course.description} Consulte o índice completo das ${course.lessons.length} aulas.`,
+    `${localized.title} — David Dimon`,
+    t('courseMetaDescription', {
+      description: localized.description,
+      count: localized.lessons.length,
+    }),
   );
   return (
     <SiteFrame>
       <main id="conteudo">
-        <nav className="breadcrumbs" aria-label="Navegação estrutural">
-          <a href={homePath}>Acervo</a>
+        <nav className="breadcrumbs" aria-label={t('structuralNavigation')}>
+          <a href={`${homePath}${localeQuery(locale)}`}>{t('archive')}</a>
           <span aria-hidden="true">/</span>
-          <span>{course.title}</span>
+          <span>{localized.title}</span>
         </nav>
         <header className="course-hero">
           <div>
             <p className="kicker">
-              {course.provider} · {course.period.startYear}–{course.period.endYear}
+              {localized.provider} · {localized.period.startYear}–{localized.period.endYear}
             </p>
-            <h1>{course.title}</h1>
-            <p>{course.description}</p>
+            <h1>{localized.title}</h1>
+            <p>{localized.description}</p>
           </div>
           <dl className="course-summary">
             <div>
-              <dt>Papel</dt>
-              <dd>{course.role}</dd>
+              <dt>{t('role')}</dt>
+              <dd>{localized.role}</dd>
             </div>
             <div>
-              <dt>Aulas</dt>
-              <dd>{course.lessons.length}</dd>
+              <dt>{t('lessons')}</dt>
+              <dd>{localized.lessons.length}</dd>
             </div>
             <div>
-              <dt>Idioma</dt>
-              <dd>{course.language}</dd>
+              <dt>{t('languageLabel')}</dt>
+              <dd>{localized.language}</dd>
             </div>
           </dl>
         </header>
@@ -377,28 +440,34 @@ function CoursePage({ course }: { course: CourseCatalogItem }) {
         <section className="lesson-index" aria-labelledby="lesson-index-title">
           <div className="section-heading">
             <div>
-              <p className="kicker">Programa completo</p>
-              <h2 id="lesson-index-title">Aulas</h2>
+              <p className="kicker">{t('completeProgram')}</p>
+              <h2 id="lesson-index-title">{t('lessons')}</h2>
             </div>
           </div>
           <ol className="lesson-list">
-            {course.lessons.map((lesson) => (
+            {localized.lessons.map((lesson) => (
               <li key={lesson.slug}>
-                <a href={lesson.presentationUrl ? localPath(lesson.presentationUrl) : undefined}>
+                <a
+                  href={
+                    lesson.presentationUrl ? lessonPath(lesson.presentationUrl, locale) : undefined
+                  }
+                >
                   <span className="lesson-number">{String(lesson.order).padStart(2, '0')}</span>
                   <span>
                     <strong>{lesson.title}</strong>
-                    <small>{lesson.topics.map(formatLabel).join(' · ')}</small>
+                    <small>
+                      {lesson.topics.map((topic) => formatLabel(topic, locale)).join(' · ')}
+                    </small>
                   </span>
                   <span aria-hidden="true">→</span>
                 </a>
               </li>
             ))}
           </ol>
-          {course.historicalNotice ? (
+          {localized.historicalNotice ? (
             <aside className="historical-note">
-              <strong>Nota histórica</strong>
-              <p>{course.historicalNotice}</p>
+              <strong>{t('historicalNote')}</strong>
+              <p>{localized.historicalNotice}</p>
             </aside>
           ) : null}
         </section>
@@ -414,52 +483,61 @@ function LessonPage({
   course: CourseCatalogItem;
   lesson: CourseCatalogLesson;
 }) {
+  const { locale, t } = useI18n();
+  const localizedCourse = localizeCourse(course, locale);
+  const localizedLesson = localizeLesson(lesson, locale);
   const index = course.lessons.findIndex((item) => item.slug === lesson.slug);
-  const previous = course.lessons[index - 1];
-  const next = course.lessons[index + 1];
-  usePageMetadata(`${lesson.title} — ${course.title}`, `Aula ${lesson.order}: ${lesson.title}.`);
+  const previous = localizedCourse.lessons[index - 1];
+  const next = localizedCourse.lessons[index + 1];
+  usePageMetadata(
+    `${localizedLesson.title} — ${localizedCourse.title}`,
+    `${t('class')} ${localizedLesson.order}: ${localizedLesson.title}.`,
+  );
 
   return (
     <SiteFrame>
       <main id="conteudo">
-        <nav className="breadcrumbs" aria-label="Navegação estrutural">
-          <a href={homePath}>Acervo</a>
+        <nav className="breadcrumbs" aria-label={t('structuralNavigation')}>
+          <a href={`${homePath}${localeQuery(locale)}`}>{t('archive')}</a>
           <span aria-hidden="true">/</span>
-          <a href={course.courseUrl ? localPath(course.courseUrl) : homePath}>{course.title}</a>
+          <a href={course.courseUrl ? localPath(course.courseUrl) : homePath}>
+            {localizedCourse.title}
+          </a>
           <span aria-hidden="true">/</span>
-          <span>Aula {lesson.order}</span>
+          <span>
+            {t('class')} {localizedLesson.order}
+          </span>
         </nav>
         <article className="lesson-page">
-          <p className="lesson-number">Aula {String(lesson.order).padStart(2, '0')}</p>
-          <h1>{lesson.title}</h1>
-          <ul className="topic-list" aria-label="Temas da aula">
-            {lesson.topics.map((topic) => (
-              <li key={topic}>{formatLabel(topic)}</li>
+          <p className="lesson-number">
+            {t('class')} {String(localizedLesson.order).padStart(2, '0')}
+          </p>
+          <h1>{localizedLesson.title}</h1>
+          <ul className="topic-list" aria-label={t('lessonTopics')}>
+            {localizedLesson.topics.map((topic) => (
+              <li key={topic}>{formatLabel(topic, locale)}</li>
             ))}
           </ul>
           <div className="migration-panel">
-            <p className="kicker">Aula preservada</p>
-            <h2>Os slides desta aula fazem parte do build final.</h2>
-            <p>
-              No artefato publicado, esta URL permanente carrega diretamente o deck histórico em
-              Slidev, preservando seu contexto original.
-            </p>
+            <p className="kicker">{t('preservedLesson')}</p>
+            <h2>{t('lessonBuildTitle')}</h2>
+            <p>{t('lessonBuildDescription')}</p>
             <a className="text-link" href={course.sourceUrl}>
-              Consultar o repositório original <span aria-hidden="true">↗</span>
+              {t('originalRepository')} <span aria-hidden="true">↗</span>
             </a>
           </div>
-          <nav className="lesson-navigation" aria-label="Navegação entre aulas">
+          <nav className="lesson-navigation" aria-label={t('lessonNavigation')}>
             {previous?.presentationUrl ? (
-              <a href={localPath(previous.presentationUrl)}>
-                <span>← Aula anterior</span>
+              <a href={lessonPath(previous.presentationUrl, locale)}>
+                <span>{t('previousLesson')}</span>
                 <strong>{previous.title}</strong>
               </a>
             ) : (
               <span />
             )}
             {next?.presentationUrl ? (
-              <a href={localPath(next.presentationUrl)}>
-                <span>Próxima aula →</span>
+              <a href={lessonPath(next.presentationUrl, locale)}>
+                <span>{t('nextLesson')}</span>
                 <strong>{next.title}</strong>
               </a>
             ) : null}
@@ -471,14 +549,15 @@ function LessonPage({
 }
 
 function NotFoundPage() {
-  usePageMetadata('Página não encontrada — Engineering Talks', 'A página solicitada não existe.');
+  const { locale, t } = useI18n();
+  usePageMetadata(t('notFoundTitle'), t('notFoundDescription'));
   return (
     <SiteFrame>
       <main id="conteudo" className="not-found">
-        <p className="kicker">Erro 404</p>
-        <h1>Página não encontrada.</h1>
-        <a className="button" href={homePath}>
-          Voltar ao acervo
+        <p className="kicker">{t('error404')}</p>
+        <h1>{t('pageNotFound')}</h1>
+        <a className="button" href={`${homePath}${localeQuery(locale)}`}>
+          {t('backToArchive')}
         </a>
       </main>
     </SiteFrame>

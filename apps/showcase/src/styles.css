@@ -150,6 +150,38 @@ footer {
   background: var(--surface-strong);
 }
 
+.header-actions,
+.language-switcher {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.language-switcher {
+  gap: 0;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 0.2rem;
+}
+
+.language-switcher button {
+  min-width: 2.5rem;
+  border: 0;
+  border-radius: 999px;
+  padding: 0.4rem 0.55rem;
+  color: var(--muted);
+  background: transparent;
+  font:
+    500 0.68rem 'DM Mono',
+    monospace;
+  cursor: pointer;
+}
+
+.language-switcher button[aria-pressed='true'] {
+  background: var(--text);
+  color: var(--background);
+}
+
 .hero {
   position: relative;
   overflow: hidden;
