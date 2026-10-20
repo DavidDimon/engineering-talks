@@ -11,6 +11,10 @@ allowBuilds:
   nx: true
 engineStrict: true
 linkWorkspacePackages: true
+overrides:
+  monaco-editor>dompurify: 3.4.17
+  nx>undici: 7.29.1
+  pptxgenjs>image-size: 2.0.4
 saveExact: true
 saveWorkspaceProtocol: rolling
 sharedWorkspaceLockfile: true
