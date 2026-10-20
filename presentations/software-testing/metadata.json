@@ -4,7 +4,7 @@
   "kind": "presentation",
   "slug": "software-testing",
   "title": "Testes de software",
-  "description": "Uma apresentação histórica sobre práticas e estratégias de testes de software.",
+  "description": "Uma apresentação sobre práticas e estratégias de testes de software.",
   "format": "talk",
   "language": "pt-BR",
   "topics": ["testes", "qualidade", "engenharia-de-software"],

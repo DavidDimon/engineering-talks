@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "slidev build --base /engineering-talks/presentations/monorepos-and-core-components/ --out ../../dist/presentations/monorepos-and-core-components --without-notes",
+    "build": "node ../../tools/pages/build-bilingual-presentation.mjs monorepos-and-core-components",
     "dev": "slidev --open",
     "validate": "tsx ../../tools/content/src/cli.ts validate --root ../.. --file presentations/monorepos-and-core-components/metadata.json"
   },

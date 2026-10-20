@@ -4,7 +4,7 @@
   "kind": "presentation",
   "slug": "monorepos-and-core-components",
   "title": "Monorepos e core components",
-  "description": "Uma apresentação histórica sobre monorepos e o compartilhamento de componentes centrais.",
+  "description": "Uma apresentação sobre monorepos e o compartilhamento de componentes centrais.",
   "format": "talk",
   "language": "pt-BR",
   "topics": ["monorepos", "componentes", "arquitetura"],

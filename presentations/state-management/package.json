@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "slidev build --base /engineering-talks/presentations/state-management/ --out ../../dist/presentations/state-management --without-notes",
+    "build": "node ../../tools/pages/build-bilingual-presentation.mjs state-management",
     "dev": "slidev --open",
     "validate": "tsx ../../tools/content/src/cli.ts validate --root ../.. --file presentations/state-management/metadata.json"
   },

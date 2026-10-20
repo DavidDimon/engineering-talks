@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "slidev build --base /engineering-talks/presentations/software-testing/ --out ../../dist/presentations/software-testing --without-notes",
+    "build": "node ../../tools/pages/build-bilingual-presentation.mjs software-testing",
     "dev": "slidev --open",
     "validate": "tsx ../../tools/content/src/cli.ts validate --root ../.. --file presentations/software-testing/metadata.json"
   },

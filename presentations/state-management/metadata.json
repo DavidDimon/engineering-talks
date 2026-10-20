@@ -4,7 +4,7 @@
   "kind": "presentation",
   "slug": "state-management",
   "title": "Gerenciamento de estado",
-  "description": "Uma apresentação histórica sobre estratégias e ferramentas para gerenciamento de estado.",
+  "description": "Uma apresentação sobre estratégias e ferramentas para gerenciamento de estado.",
   "format": "talk",
   "language": "pt-BR",
   "topics": ["frontend", "estado", "javascript"],

@@ -4,7 +4,7 @@
   "kind": "presentation",
   "slug": "mdx-deck",
   "title": "MDX Deck",
-  "description": "Uma apresentação histórica sobre a criação de slides com MDX Deck.",
+  "description": "Uma apresentação sobre a criação de slides com MDX Deck.",
   "format": "talk",
   "language": "pt-BR",
   "topics": ["mdx", "apresentacoes", "react"],

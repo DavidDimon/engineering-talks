@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "slidev build --base /engineering-talks/presentations/flutter/ --out ../../dist/presentations/flutter --without-notes",
+    "build": "node ../../tools/pages/build-bilingual-presentation.mjs flutter",
     "dev": "slidev --open",
     "validate": "tsx ../../tools/content/src/cli.ts validate --root ../.. --file presentations/flutter/metadata.json"
   },

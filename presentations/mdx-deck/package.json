@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "slidev build --base /engineering-talks/presentations/mdx-deck/ --out ../../dist/presentations/mdx-deck --without-notes",
+    "build": "node ../../tools/pages/build-bilingual-presentation.mjs mdx-deck",
     "dev": "slidev --open",
     "validate": "tsx ../../tools/content/src/cli.ts validate --root ../.. --file presentations/mdx-deck/metadata.json"
   },
