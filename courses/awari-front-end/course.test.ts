@@ -6,7 +6,7 @@ import { fileURLToPath } from 'node:url';
 
 const courseRoot = dirname(fileURLToPath(import.meta.url));
 
-test('every manifest lesson has one ordered, uniquely addressed Slidev source', async () => {
+test('every manifest lesson has ordered, uniquely addressed bilingual Slidev sources', async () => {
   const course = JSON.parse(await readFile(join(courseRoot, 'course.json'), 'utf8')) as {
     lessons: Array<{ order: number; slug: string }>;
   };
@@ -18,6 +18,7 @@ test('every manifest lesson has one ordered, uniquely addressed Slidev source', 
     course.lessons.map(async (lesson, index) => {
       assert.equal(lesson.order, index + 1);
       await access(join(courseRoot, 'lessons', lesson.slug, 'slides.md'));
+      await access(join(courseRoot, 'lessons', lesson.slug, 'slides.en.md'));
     }),
   );
 });
