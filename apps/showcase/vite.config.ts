@@ -3,6 +3,8 @@ import { createReadStream, statSync } from 'node:fs';
 import { extname, join, normalize, resolve } from 'node:path';
 import { defineConfig, type Plugin } from 'vite';
 
+import { decodeRoutePath, isPathInsideRoot } from './src/app/static-build-path.js';
+
 type StaticBuildRoute = {
   fallbackSegments: number;
   prefix: string;
@@ -34,11 +36,12 @@ const mimeTypes: Record<string, string> = {
 };
 
 function resolveBuildFile(route: StaticBuildRoute, pathname: string): string | undefined {
-  const relativePath = decodeURIComponent(pathname.slice(route.prefix.length));
+  const relativePath = decodeRoutePath(pathname, route.prefix);
+  if (relativePath === undefined) return undefined;
   if (route.fallbackSegments === 3 && !relativePath.includes('/aulas/')) return undefined;
 
   let filePath = normalize(join(route.root, relativePath));
-  if (!filePath.startsWith(route.root)) return undefined;
+  if (!isPathInsideRoot(route.root, filePath)) return undefined;
 
   try {
     if (statSync(filePath).isDirectory()) filePath = join(filePath, 'index.html');
@@ -49,7 +52,7 @@ function resolveBuildFile(route: StaticBuildRoute, pathname: string): string | u
     const fallback = normalize(
       join(route.root, ...segments.slice(0, route.fallbackSegments), 'index.html'),
     );
-    if (!fallback.startsWith(route.root)) return undefined;
+    if (!isPathInsideRoot(route.root, fallback)) return undefined;
     try {
       return statSync(fallback).isFile() ? fallback : undefined;
     } catch {
